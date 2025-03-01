@@ -1,5 +1,6 @@
-const express= require('express');
-const {TrainModel} = require('common/types')
+import express from 'express';
+import { TrainModel } from 'common/types';
+import { prismaClient } from 'db';
 
 const app = express();
 const PORT = 8000;
