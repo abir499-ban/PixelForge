@@ -36,6 +36,11 @@ enum EyeColor {
   Grey
 }
 
+enum OutputImageStatus {
+  Pending
+  Generated
+  Failed
+}
 
 model User {
   id             String  @id @default(uuid())
@@ -53,6 +58,7 @@ model Model {
   ethicity ModelEthnicty
   eyecolor EyeColor
   bald Boolean
+  userId String
   trainingImages TrainingImages[]
   outputImages OutputImages[]
   createdAt DateTime @default(now())
@@ -68,8 +74,10 @@ model TrainingImages{
 
 model OutputImages{
   id String @id @default(uuid())
-  imageUrl String
-  modelId String 
+  imageUrl String  @default("")
+  modelId String
+  prompt String 
+  status OutputImageStatus @default(Pending)
   userId String
   model Model @relation(fields: [modelId] , references: [id])
   createdAt DateTime @default(now())

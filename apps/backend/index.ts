@@ -1,10 +1,10 @@
 import express from 'express';
-import { TrainModel } from 'common/types';
+import { GenerateImage, GenerateImagesFromPack, TrainModel } from 'common/types';
 import { prismaClient } from 'db';
 
 const app = express();
 const PORT = 8000;
-
+const demoUserID = "123jasb"
 
 app.use(express.json())
 app.use(express.urlencoded({extended : false}))
@@ -26,7 +26,6 @@ app.post('/ai/training', async(req, res) => {
 
         return ;
     }
-
     const model = await prismaClient.model.create({
         data:{
             name : parsedResult.data.name,
@@ -34,7 +33,8 @@ app.post('/ai/training', async(req, res) => {
             type : parsedResult.data.type,
             ethicity : parsedResult.data.ethnicity,
             eyecolor : parsedResult.data.eyecolor,
-            bald : parsedResult.data.bald
+            bald : parsedResult.data.bald,
+            userId : demoUserID
         }
     })
 
@@ -45,7 +45,31 @@ app.post('/ai/training', async(req, res) => {
     
 });
 
-app.post('/ai/generate', (req : any, res : any) => {
+app.post('/ai/generate', async(req : any, res : any) => {
+    const parsedBody = GenerateImage.safeParse(req.body)
+
+    if(!parsedBody.success){
+        res.status(401).json({
+            success : false,
+            message : "incorrect feilds"
+        })
+
+        return;
+    }
+
+    const image = await prismaClient.outputImages.create({
+        data:{
+            modelId : parsedBody.data.modelId,
+            prompt : parsedBody.data.prompt,
+            userId : demoUserID,
+            imageUrl : ""
+        }
+    })
+
+    res.status(201).json({
+        message : `Image Created with id : ${image.id}`
+    })
+    return;
     
 });
 
@@ -53,7 +77,39 @@ app.get('/image', (req : any, res : any) => {
     
 });
 
-app.post('/pack/generate', (req : any, res : any) => {
+app.post('/pack/generate', async(req : any, res : any) => {
+    const parsedBody = GenerateImagesFromPack.safeParse(req.body)
+
+    if(!parsedBody.success){
+        res.status(401).json({
+            success : false,
+            message : "incorrect feilds"
+        })
+
+        return;
+    }
+
+    const prompts = await prismaClient.packPrompts.findMany({
+        where:{
+            PackId : parsedBody.data.packId
+        }
+    })
+
+    const images = await prismaClient.outputImages.createMany({
+        data : prompts.map((prompt)=>({
+            modelId : parsedBody.data.modelId,
+            prompt : prompt.name,
+            userId : demoUserID,
+            imageUrl : ""
+        }))
+    })
+
+    res.json({
+        message : `generated ${images.count} images`
+    })
+
+
+
     
 });
 

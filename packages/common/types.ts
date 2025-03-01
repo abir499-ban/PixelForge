@@ -24,7 +24,7 @@ export const GenerateImage = z.object({
     num: z.number()
 })
 
-export const GeneratePack = z.object({
+export const GenerateImagesFromPack = z.object({
     modelId: z.string(),
     packId: z.string()
 })
