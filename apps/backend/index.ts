@@ -73,7 +73,16 @@ app.post('/ai/generate', async(req : any, res : any) => {
     
 });
 
-app.get('/image', (req : any, res : any) => {
+app.get('/image', async(req : any, res : any) => {
+    const images = await prismaClient.outputImages.findMany({
+        where:{
+            status: 'Generated'
+        }
+    })
+
+    res.json({images : images})
+
+    return;
     
 });
 
@@ -113,8 +122,13 @@ app.post('/pack/generate', async(req : any, res : any) => {
     
 });
 
-app.get('/pack/bulk', (req : any, res : any) => {
-    
+app.get('/pack/bulk', async(req : any, res : any) => {
+    const Packs = await prismaClient.pack.findMany({})
+
+    res.status(201).json({
+        packs : Packs
+    })
+    return;
 });
 
 
