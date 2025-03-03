@@ -156,10 +156,44 @@ app.get('/images/bulk', async (req, res) => {
 })
 
 
-app.post('/fal-ai/webhook' ,(req , res)=>{
+app.post('/fal-ai/webhook/train' ,async(req , res)=>{
     console.log(req.body)
+    const request_id = req.body.request_id as string;
+    //TODO:Accept the Webhook and update the required model with the triggerWord and tensor(s)
 
-    //TODO:Accept the Webhook and register the model
+    await prismaClient.model.updateMany({
+        where:{
+            falAirequest_id: request_id
+        },
+        data:{
+            trainingStatus : "Generated",
+            tensor : req.body.tensor_path
+        }
+    })
+
+    res.status(201).json({
+        message : 'Webhook received'
+    })
+})
+
+
+
+
+
+app.post('/fal-ai/webhook/image' ,async(req , res)=>{
+    console.log(req.body)
+    const request_id  =req.body.request_id as string
+
+    await prismaClient.outputImages.updateMany({
+        where:{
+            falAirequest_id : request_id
+        },
+        data:{
+            status : "Generated",
+            imageUrl : req.body.image_url
+        }
+    })
+    
 
     res.status(201).json({
         message : 'Webhook received'

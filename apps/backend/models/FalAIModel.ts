@@ -10,22 +10,15 @@ export class FalAIModel extends BaseModel {
     }
 
     async generateImages(prompt: string, tensorPath: string): Promise<any> {
-        const result = await fal.subscribe("fal-ai/flux-lora", {
+        const {request_id , response_url} = await fal.queue.submit("fal-ai/flux-lora", {
             input: {
                 prompt: prompt,
                 loras: [{ path: tensorPath, scale: 1 }]
             },
-            logs: true,
-            onQueueUpdate: (update) => {
-                if (update.status === "IN_PROGRESS") {
-                    update.logs.map((log) => log.message).forEach(console.log);
-                }
-            },
+            webhookUrl : `${process.env.BASE_WEBHOOK_URL}/fal-ai/webhook/image`
         });
-        console.log(result.data);
-        console.log(result.requestId);
 
-        return result
+        return {request_id , response_url}
     }
 
     async trainModel(zipUrl: string, triggerWord: string): Promise<any> {
@@ -35,7 +28,7 @@ export class FalAIModel extends BaseModel {
                 images_data_url: zipUrl,
                 trigger_word : triggerWord
             },
-            webhookUrl: `${process.env.BASE_WEBHOOK_URL}/fal-ai/webhook`,
+            webhookUrl: `${process.env.BASE_WEBHOOK_URL}/fal-ai/webhook/train`,
         });
 
         return {request_id, response_url};
