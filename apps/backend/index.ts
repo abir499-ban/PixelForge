@@ -1,10 +1,12 @@
 import express from 'express';
 import { GenerateImage, GenerateImagesFromPack, TrainModel } from 'common/types';
 import { prismaClient } from 'db';
+import dotenv from 'dotenv'
 
 const app = express();
 const PORT = 8000;
 const demoUserID = "123jasb"
+dotenv.config()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -153,6 +155,16 @@ app.get('/images/bulk', async (req, res) => {
     return;
 })
 
+
+app.post('/fal-ai/webhook' ,(req , res)=>{
+    console.log(req.body)
+
+    //TODO:Accept the Webhook and register the model
+
+    res.status(201).json({
+        message : 'Webhook received'
+    })
+})
 
 
 app.listen(PORT, () => {
