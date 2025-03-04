@@ -4,6 +4,10 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+fal.config({
+    credentials: process.env.FAL_KEY
+  });
+
 export class FalAIModel extends BaseModel {
     constructor() {
         super()

@@ -22,6 +22,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@fal-ai/client": "^1.2.3"
+    "@fal-ai/client": "^1.2.3",
+    "s3": "^4.4.0"
   }
 }

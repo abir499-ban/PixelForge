@@ -2,11 +2,36 @@ import express from 'express';
 import { GenerateImage, GenerateImagesFromPack, TrainModel } from 'common/types';
 import { prismaClient } from 'db';
 import dotenv from 'dotenv'
+import {S3 , S3Client} from '@aws-sdk/client-s3'
+import {createPresignedPost} from '@aws-sdk/s3-presigned-post'
+import {FalAIModel} from './models/FalAIModel'
+dotenv.config()
+
+
+
 
 const app = express();
 const PORT = 8000;
 const demoUserID = "123jasb"
-dotenv.config()
+
+const client = new S3Client({region : "ap-southeast-2",
+    endpoint : process.env.ENDPOINT,
+    credentials:{
+        accessKeyId : process.env.S3_ACCESS_KEY as string,
+        secretAccessKey : process.env.S3_SECRET_KEY as string
+    }
+})
+
+
+
+const Bucket = process.env.BUCKET_NAME;
+const Key = `models/${Date.now()}_${Math.random()}.zip`
+const Fields = {
+    acl: "bucket-owner-full-control",
+  };
+
+
+const falAimodel = new FalAIModel()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -15,6 +40,27 @@ app.get('/', (req: any, res: any) => {
     res.send("hello from server");
 });
 
+
+
+app.get('/pre-signed-url' , async(req , res)=>{
+    const {url , fields}  = await createPresignedPost(client , {
+        Bucket : Bucket as string,
+        Key,
+        Fields,
+        Expires : 600
+        
+
+
+    })
+
+    console.log("Presigned url : "  , url);
+    console.log("Form Feilds :" , fields)
+
+    res.status(201).json({
+        url
+    })
+    return;
+})
 //Routes
 
 app.post('/ai/training', async (req, res) => {
