@@ -20,10 +20,10 @@ npm install @prisma/client
 
 4. Generate the Prisma Client
 ```sh
-    prisma generate
+    npx prisma generate
 ```
 
 5. Sync prisma Schema with the database and generate migration files.
 ```sh
-    npx prisma generate dev
+    npx prisma migrate dev
 ```
