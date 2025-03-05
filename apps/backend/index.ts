@@ -14,7 +14,7 @@ const app = express();
 const PORT = 8000;
 const demoUserID = "123jasb"
 
-const client = new S3Client({region : "ap-southeast-2",
+const client = new S3Client({region : "ap-south-2",
     endpoint : process.env.ENDPOINT,
     credentials:{
         accessKeyId : process.env.S3_ACCESS_KEY as string,
@@ -48,9 +48,6 @@ app.get('/pre-signed-url' , async(req , res)=>{
         Key,
         Fields,
         Expires : 600
-        
-
-
     })
 
     console.log("Presigned url : "  , url);
