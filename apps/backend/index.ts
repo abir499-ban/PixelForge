@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import {S3 , S3Client} from '@aws-sdk/client-s3'
 import {createPresignedPost} from '@aws-sdk/s3-presigned-post'
 import {FalAIModel} from './models/FalAIModel'
+import {RequestIDArrayType} from '../../types'
 dotenv.config()
 
 
@@ -54,7 +55,8 @@ app.get('/pre-signed-url' , async(req , res)=>{
     console.log("Form Feilds :" , fields)
 
     res.status(201).json({
-        url
+        url,
+        Key
     })
     return;
 })
@@ -149,12 +151,18 @@ app.post('/pack/generate', async (req: any, res: any) => {
         }
     })
 
+    let requestIds : RequestIDArrayType[] =[]
+    prompts.forEach(async(prompt)=>{
+        requestIds.push(await falAimodel.generateImages(prompt.name ,  parsedBody.data.modelId))
+    })
+
     const images = await prismaClient.outputImages.createMany({
-        data: prompts.map((prompt) => ({
+        data: prompts.map((prompt, index) => ({
             modelId: parsedBody.data.modelId,
             prompt: prompt.name,
             userId: demoUserID,
-            imageUrl: ""
+            imageUrl: "",
+            requestIds : requestIds[index].request_id
         }))
     })
 
