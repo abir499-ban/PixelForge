@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -20,8 +22,10 @@ import {
 } from "@/components/ui/select"
 import FileUploadModal from "@/components/ui/fileuploadmodal"
 import { Switch } from '@/components/ui/switch'
+import { UploadIcon } from "lucide-react"
 
 const CardWithForm = () => {
+    const [val, setval] = React.useState<string>("")
     return (
         <div className="flex flex-col items-center justify-center mt-10">
             <Card className="w-[500px]">
@@ -90,9 +94,9 @@ const CardWithForm = () => {
                                 <Label htmlFor="bald" className="ml-2">Bald</Label>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <FileUploadModal />
+                                <FileUploadModal/>
                             </div>
-                            
+
                         </div>
                     </form>
                 </CardContent>
@@ -101,6 +105,10 @@ const CardWithForm = () => {
                     <Button>Create Model</Button>
                 </CardFooter>
             </Card>
+
+            {val.length !== 0 && (
+                <div className=' bg-yellow-300 text-center m-10 rounded-md font-medium text-xl'>{val}</div>
+            )}
         </div>
     )
 }

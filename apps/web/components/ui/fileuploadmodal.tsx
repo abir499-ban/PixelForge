@@ -9,33 +9,29 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button"
 
 export default function FileUploadModal() {
-  const[file ,setfile] = React.useState<File | null>(null)
-  
+  const [file, setfile] = React.useState<File | null>(null)
+
   return (
     <Card>
       <CardContent className="flex flex-col items-center justify-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-lg p-10 space-y-6">
-        <CloudUploadIcon className="w-16 h-16 text-zinc-500 dark:text-zinc-400" />
-      <Button variant='outline' className='w-full'
-      onClick={()=>{
-        const input = document.createElement("input")
-        input.type = "file"
-        input.multiple = true
-        input.accept = 'image/*'
-        input.onchange = (ev: Event) => {
-          ev.preventDefault();
-         console.log("hello")
-        };
-
-        input.click()
-      }}>
-        Select Files
-      </Button>
-      {/* <Button variant='ghost' onClick={(e : React.MouseEvent<HTMLButtonElement>)=>{
-        e.preventDefault();
-        console.log("hi")
-      }}>Say hi</Button> */}
-        
-
+        <CloudUploadIcon/>
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: 'none' }}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault()
+            console.log(e.target.files)
+            
+          }}
+          multiple={true}
+        />
+        <label
+          htmlFor="fileInput"
+          className="w-full flex flex-col justify-center items-center border border-grey rounded-lg"
+        >
+          Select Files📁
+        </label>
       </CardContent>
     </Card>
   );
