@@ -18,13 +18,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import FileUploadModal from "@/components/ui/fileuploadmodal"
 
 const CardWithForm = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center mt-10">
             <Card className="w-[500px]">
                 <CardHeader>
-                    <CardTitle>Create Model</CardTitle>
+                    <CardTitle className="font-serif text-2xl">Create Model</CardTitle>
                     <CardDescription>Create and Register Model in just one click</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -82,6 +83,9 @@ const CardWithForm = () => {
                                         <SelectItem value="grey">Grey</SelectItem>
                                     </SelectContent>
                                 </Select>
+                            </div>
+                            <div className="flex flex-col space-y-1.5">
+                               <FileUploadModal/>
                             </div>
                         </div>
                     </form>
