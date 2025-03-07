@@ -19,6 +19,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import FileUploadModal from "@/components/ui/fileuploadmodal"
+import { Switch } from '@/components/ui/switch'
 
 const CardWithForm = () => {
     return (
@@ -33,11 +34,11 @@ const CardWithForm = () => {
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Model Name</Label>
-                                <Input id="name" placeholder="Name of your project" />
+                                <Input id="name" placeholder="Name of your model" />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Enter Age</Label>
-                                <Input id="name" placeholder="Name of your project" type="number" />
+                                <Input id="name" placeholder="Age of Model" type="number" />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Gender</Label>
@@ -84,9 +85,14 @@ const CardWithForm = () => {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="flex flex-col space-y-1.5">
-                               <FileUploadModal/>
+                            <div className="flex iflex-col space-y-1.5">
+                                <Switch id="bald" />
+                                <Label htmlFor="bald" className="ml-2">Bald</Label>
                             </div>
+                            <div className="flex flex-col space-y-1.5">
+                                <FileUploadModal />
+                            </div>
+                            
                         </div>
                     </form>
                 </CardContent>
