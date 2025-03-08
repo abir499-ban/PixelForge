@@ -80,6 +80,11 @@ app.post('/ai/training', async (req, res) => {
 
         return;
     }
+
+    const {request_id , response_url}  = await falAimodel.trainModel(parsedResult.data.zipUrl , parsedResult.data.name)
+
+
+
     const model = await prismaClient.model.create({
         data: {
             name: parsedResult.data.name,
@@ -88,8 +93,9 @@ app.post('/ai/training', async (req, res) => {
             ethicity: parsedResult.data.ethnicity,
             eyecolor: parsedResult.data.eyecolor,
             bald: parsedResult.data.bald,
+            zipUrl : parsedResult.data.zipUrl,
             userId: demoUserID,
-            
+            falAirequest_id : request_id
         }
     })
 

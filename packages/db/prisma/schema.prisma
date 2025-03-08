@@ -73,6 +73,7 @@ model Model {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   falAirequest_id String?
+  zipUrl String
 }
 
 model TrainingImages{

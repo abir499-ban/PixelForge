@@ -25,9 +25,13 @@ import FileUploadModal from "@/components/ui/fileuploadmodal"
 import { Switch } from '@/components/ui/switch'
 import { UploadIcon } from "lucide-react"
 import {TrainModelType , ImagefromPackType , ImageType, ModelGenderType , ModelEthnictyType , ModelEyeColorType} from 'common/inferedTypes'
+import axios from "axios"
+import { BACKEND_URL } from "common/constants"
+import {useRouter} from 'next/navigation'
 
 
 const CardWithForm = () => {
+    const router = useRouter()
     const[zipUrl , setzipUrl] = React.useState<string>("")
     const [name, setname] = useState<string>("")
     const [age, setage] = useState<number>(0)
@@ -44,8 +48,15 @@ const CardWithForm = () => {
             ethnicity: ethnicity , 
             eyecolor : eyeColor , 
             bald: bald,
-            tensor : zipUrl,
-            images :[]
+            zipUrl : zipUrl
+        }
+
+        try {
+            const res = await axios.post(`${BACKEND_URL}/ai/training` , model);
+            console.log(res.data)
+            router.push('/')
+        } catch (error) {
+            console.error("Some error occured")
         }
 
 
