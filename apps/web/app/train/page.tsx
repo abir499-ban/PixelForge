@@ -48,7 +48,7 @@ const CardWithForm = () => {
             images :[]
         }
 
-        
+
     }
     
 
@@ -64,28 +64,33 @@ const CardWithForm = () => {
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Model Name</Label>
-                                <Input id="name" placeholder="Name of your model" />
+                                <Input id="name" placeholder="Name of your model" value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    setname(e.target.value)
+                                }}/>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Enter Age</Label>
-                                <Input id="name" placeholder="Age of Model" type="number" />
+                                <Input id="name" placeholder="Age of Model" type="number" 
+                                value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    setage(parseInt(e.target.value))
+                                }}/>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Gender</Label>
-                                <Select>
+                                <Select onValueChange={(value) => setgender(value as ModelGenderType)}>
                                     <SelectTrigger id="framework">
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
                                     <SelectContent position="popper">
-                                        <SelectItem value="male">Male</SelectItem>
-                                        <SelectItem value="female">Female</SelectItem>
-                                        <SelectItem value="other">Other</SelectItem>
+                                        <SelectItem value="Male">Male</SelectItem>
+                                        <SelectItem value="Female">Female</SelectItem>
+                                        <SelectItem value="Other">Other</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Ethnicity</Label>
-                                <Select>
+                                <Select onValueChange={(value)=> setethnicity(value as ModelEthnictyType)}>
                                     <SelectTrigger id="framework">
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
@@ -103,7 +108,7 @@ const CardWithForm = () => {
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Eye Color</Label>
-                                <Select>
+                                <Select onValueChange={(value)=> seteyeColor(value as ModelEyeColorType)}>
                                     <SelectTrigger id="framework">
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
@@ -116,8 +121,8 @@ const CardWithForm = () => {
                                 </Select>
                             </div>
                             <div className="flex iflex-col space-y-1.5">
-                                <Switch id="bald" />
-                                <Label htmlFor="bald" className="ml-2">Bald</Label>
+                                <Switch checked={bald} onCheckedChange={(e) => setbald(!bald)}  className="cursor-pointer"/>
+                                <Label className="ml-2">Bald</Label>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <FileUploadModal onUploadDone={(zipUrl)=>{
@@ -130,7 +135,7 @@ const CardWithForm = () => {
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline">Cancel</Button>
-                    <Button onClick={createModel}>Create Model</Button>
+                    <Button disabled={!name || !age || !gender || !ethnicity || !eyeColor || !zipUrl} onClick={createModel}>Create Model</Button>
                 </CardFooter>
             </Card>
 
