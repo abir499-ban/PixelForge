@@ -5,7 +5,8 @@
   "main": "index.ts",
   "exports" : {
     "./types" : "./types.ts",
-    "./constants" : "./constants.ts"
+    "./constants" : "./constants.ts",
+    "./inferedTypes" : "./infered_types.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

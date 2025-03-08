@@ -14,8 +14,12 @@
     "@aws-sdk/s3-presigned-post": "^3.758.0",
     "@types/express": "^5.0.0",
     "common": "*",
+    "cors": "^2.8.5",
     "db": "*",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

@@ -2,16 +2,22 @@ import express from 'express';
 import { GenerateImage, GenerateImagesFromPack, TrainModel } from 'common/types';
 import { prismaClient } from 'db';
 import dotenv from 'dotenv'
-import {S3 , S3Client} from '@aws-sdk/client-s3'
+import {PutObjectCommand, S3 , S3Client} from '@aws-sdk/client-s3'
 import {createPresignedPost} from '@aws-sdk/s3-presigned-post'
 import {FalAIModel} from './models/FalAIModel'
 import {RequestIDArrayType} from '../../types'
+import cors from 'cors'
 dotenv.config()
 
-
-
-
 const app = express();
+
+app.use(cors())
+
+
+
+
+
+
 const PORT = 8000;
 const demoUserID = "123jasb"
 
@@ -44,6 +50,7 @@ app.get('/', (req: any, res: any) => {
 
 
 app.get('/pre-signed-url' , async(req , res)=>{
+
     const {url , fields}  = await createPresignedPost(client , {
         Bucket : Bucket as string,
         Key,
@@ -81,7 +88,8 @@ app.post('/ai/training', async (req, res) => {
             ethicity: parsedResult.data.ethnicity,
             eyecolor: parsedResult.data.eyecolor,
             bald: parsedResult.data.bald,
-            userId: demoUserID
+            userId: demoUserID,
+            
         }
     })
 

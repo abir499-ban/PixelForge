@@ -7,11 +7,13 @@
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {BACKEND_URL} from 'common/constants'
+import {BACKEND_URL, CLOUDFLARE_BASE_URL} from 'common/constants'
 import axios from 'axios'
 import JSZip from 'jszip'
 
-export default function FileUploadModal() {
+export default function FileUploadModal({onUploadDone} : {
+  onUploadDone : (zipUrl : string) => void
+}) {
   const [file, setfile] = React.useState<File[]>([])
 
   const handleZip_FileUpload = async() =>{
@@ -30,8 +32,8 @@ export default function FileUploadModal() {
     const zipBlob = await zip.generateAsync({type: "blob"});
 
     // Create form data with the required fields
-    const formData = new FormData();
-    formData.append('file', zipBlob, key);
+    // const formData = new FormData();
+    // formData.append('file', zipBlob, key);
 
     try {
       // Upload to S3 using presigned URL
@@ -42,6 +44,8 @@ export default function FileUploadModal() {
       });
 
       console.log('Files uploaded successfully');
+      onUploadDone(`${CLOUDFLARE_BASE_URL}/${key}`)
+
     } catch (error) {
       console.error('Error uploading files:', error);
     }

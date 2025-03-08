@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import {useState} from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -23,9 +24,34 @@ import {
 import FileUploadModal from "@/components/ui/fileuploadmodal"
 import { Switch } from '@/components/ui/switch'
 import { UploadIcon } from "lucide-react"
+import {TrainModelType , ImagefromPackType , ImageType, ModelGenderType , ModelEthnictyType , ModelEyeColorType} from 'common/inferedTypes'
+
 
 const CardWithForm = () => {
-    const [val, setval] = React.useState<string>("")
+    const[zipUrl , setzipUrl] = React.useState<string>("")
+    const [name, setname] = useState<string>("")
+    const [age, setage] = useState<number>(0)
+    const [gender, setgender] = useState<ModelGenderType>('Male')
+    const [ethnicity, setethnicity] = useState<ModelEthnictyType>('Black')
+    const [eyeColor, seteyeColor] = useState<ModelEyeColorType>('Brown')
+    const [bald, setbald] = useState<boolean>(false)
+
+    const createModel = async() =>{
+        const model : TrainModelType = {
+            name: name,
+            age: age,
+            type : gender, 
+            ethnicity: ethnicity , 
+            eyecolor : eyeColor , 
+            bald: bald,
+            tensor : zipUrl,
+            images :[]
+        }
+
+        
+    }
+    
+
     return (
         <div className="flex flex-col items-center justify-center mt-10">
             <Card className="w-[500px]">
@@ -94,7 +120,9 @@ const CardWithForm = () => {
                                 <Label htmlFor="bald" className="ml-2">Bald</Label>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <FileUploadModal/>
+                                <FileUploadModal onUploadDone={(zipUrl)=>{
+                                    setzipUrl(zipUrl)
+                                }}/>
                             </div>
 
                         </div>
@@ -102,13 +130,10 @@ const CardWithForm = () => {
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline">Cancel</Button>
-                    <Button>Create Model</Button>
+                    <Button onClick={createModel}>Create Model</Button>
                 </CardFooter>
             </Card>
 
-            {val.length !== 0 && (
-                <div className=' bg-yellow-300 text-center m-10 rounded-md font-medium text-xl'>{val}</div>
-            )}
         </div>
     )
 }
