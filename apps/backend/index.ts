@@ -7,6 +7,7 @@ import {createPresignedPost} from '@aws-sdk/s3-presigned-post'
 import {FalAIModel} from './models/FalAIModel'
 import {RequestIDArrayType} from '../../types'
 import cors from 'cors'
+import { authMiddleware } from './middleware';
 dotenv.config()
 
 const app = express();
@@ -69,7 +70,7 @@ app.get('/pre-signed-url' , async(req , res)=>{
 })
 //Routes
 
-app.post('/ai/training', async (req, res) => {
+app.post('/ai/training', authMiddleware,async (req, res) => {
     const parsedResult = TrainModel.safeParse(req.body)
 
     if (!parsedResult.success) {
@@ -106,7 +107,7 @@ app.post('/ai/training', async (req, res) => {
 
 });
 
-app.post('/ai/generate', async (req: any, res: any) => {
+app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
     const parsedBody = GenerateImage.safeParse(req.body)
 
     if (!parsedBody.success) {

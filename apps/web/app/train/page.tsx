@@ -28,6 +28,7 @@ import {TrainModelType , ImagefromPackType , ImageType, ModelGenderType , ModelE
 import axios from "axios"
 import { BACKEND_URL } from "common/constants"
 import {useRouter} from 'next/navigation'
+import {useAuth} from '@clerk/nextjs'
 
 
 const CardWithForm = () => {
@@ -39,6 +40,8 @@ const CardWithForm = () => {
     const [ethnicity, setethnicity] = useState<ModelEthnictyType>('Black')
     const [eyeColor, seteyeColor] = useState<ModelEyeColorType>('Brown')
     const [bald, setbald] = useState<boolean>(false)
+
+    const {getToken}  = useAuth()
 
     const createModel = async() =>{
         const model : TrainModelType = {
@@ -52,7 +55,12 @@ const CardWithForm = () => {
         }
 
         try {
-            const res = await axios.post(`${BACKEND_URL}/ai/training` , model);
+            const token = await getToken();
+            const res = await axios.post(`${BACKEND_URL}/ai/training` , model , {
+                headers:{
+                    authorization : `Bearer ${token}`
+                }
+            });
             console.log(res.data)
             router.push('/')
         } catch (error) {
@@ -146,7 +154,7 @@ const CardWithForm = () => {
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline">Cancel</Button>
-                    <Button disabled={!name || !age || !gender || !ethnicity || !eyeColor || !zipUrl} onClick={createModel}>Create Model</Button>
+                    <Button disabled={!name || !age || !gender || !ethnicity || !eyeColor} onClick={createModel}>Create Model</Button>
                 </CardFooter>
             </Card>
 
