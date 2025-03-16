@@ -20,7 +20,7 @@ export const TrainModel = z.object({
     ethnicity: ModelEthnicty,
     eyecolor: EyeColor,
     bald: z.boolean(),
-   zipUrl : z.string()
+   zipUrl : z.string().optional()
 })
 
 export const GenerateImage = z.object({

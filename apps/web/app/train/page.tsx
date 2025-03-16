@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {useState} from 'react'
+import { useState } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -24,16 +24,16 @@ import {
 import FileUploadModal from "@/components/ui/fileuploadmodal"
 import { Switch } from '@/components/ui/switch'
 import { UploadIcon } from "lucide-react"
-import {TrainModelType , ImagefromPackType , ImageType, ModelGenderType , ModelEthnictyType , ModelEyeColorType} from 'common/inferedTypes'
+import { TrainModelType, ImagefromPackType, ImageType, ModelGenderType, ModelEthnictyType, ModelEyeColorType } from 'common/inferedTypes'
 import axios from "axios"
 import { BACKEND_URL } from "common/constants"
-import {useRouter} from 'next/navigation'
-import {useAuth} from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs'
 
 
 const CardWithForm = () => {
     const router = useRouter()
-    const[zipUrl , setzipUrl] = React.useState<string>("")
+    const [zipUrl, setzipUrl] = React.useState<string>("")
     const [name, setname] = useState<string>("")
     const [age, setage] = useState<number>(0)
     const [gender, setgender] = useState<ModelGenderType>('Male')
@@ -41,35 +41,36 @@ const CardWithForm = () => {
     const [eyeColor, seteyeColor] = useState<ModelEyeColorType>('Brown')
     const [bald, setbald] = useState<boolean>(false)
 
-    const {getToken}  = useAuth()
+    const { getToken, userId } = useAuth()
 
-    const createModel = async() =>{
-        const model : TrainModelType = {
+    const createModel = async () => {
+        const model: TrainModelType = {
             name: name,
             age: age,
-            type : gender, 
-            ethnicity: ethnicity , 
-            eyecolor : eyeColor , 
+            type: gender,
+            ethnicity: ethnicity,
+            eyecolor: eyeColor,
             bald: bald,
-            zipUrl : zipUrl
+            zipUrl: zipUrl
         }
 
         try {
             const token = await getToken();
-            const res = await axios.post(`${BACKEND_URL}/ai/training` , model , {
-                headers:{
-                    authorization : `Bearer ${token}`
+            console.log(userId)
+            const res = await axios.post(`${BACKEND_URL}/ai/training`, model, {
+                headers: {
+                    authorization: `Bearer ${token}`
                 }
             });
             console.log(res.data)
             router.push('/')
         } catch (error) {
-            console.error("Some error occured")
+            console.error("Some error occured ", error)
         }
 
 
     }
-    
+
 
     return (
         <div className="flex flex-col items-center justify-center mt-10">
@@ -85,14 +86,14 @@ const CardWithForm = () => {
                                 <Label htmlFor="name">Model Name</Label>
                                 <Input id="name" placeholder="Name of your model" value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setname(e.target.value)
-                                }}/>
+                                }} />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Enter Age</Label>
-                                <Input id="name" placeholder="Age of Model" type="number" 
-                                value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    setage(parseInt(e.target.value))
-                                }}/>
+                                <Input id="name" placeholder="Age of Model" type="number"
+                                    value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                        setage(parseInt(e.target.value))
+                                    }} />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Gender</Label>
@@ -109,44 +110,46 @@ const CardWithForm = () => {
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Ethnicity</Label>
-                                <Select onValueChange={(value)=> setethnicity(value as ModelEthnictyType)}>
+                                <Select onValueChange={(value) => setethnicity(value as ModelEthnictyType)}>
                                     <SelectTrigger id="framework">
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
                                     <SelectContent position="popper">
-                                        <SelectItem value="black">Black</SelectItem>
-                                        <SelectItem value="asian_american">Asian American</SelectItem>
-                                        <SelectItem value="east_asian">East Asian</SelectItem>
-                                        <SelectItem value="south_east_asian">South East Asian</SelectItem>
-                                        <SelectItem value="south_asian">South Asian</SelectItem>
-                                        <SelectItem value="middle_eastern">Middle Eastern</SelectItem>
-                                        <SelectItem value="pacific">Pacific</SelectItem>
-                                        <SelectItem value="hispanic">Hispanic</SelectItem>
+                                        <SelectItem value="Black">Black</SelectItem>
+                                        <SelectItem value="Asian_American">Asian American</SelectItem>
+                                        <SelectItem value="East_Asian">East Asian</SelectItem>
+                                        <SelectItem value="South_East_Asian">South East Asian</SelectItem>
+                                        <SelectItem value="South_Asian">South Asian</SelectItem>
+                                        <SelectItem value="Middle_Eastern">Middle Eastern</SelectItem>
+                                        <SelectItem value="Pacific">Pacific</SelectItem>
+                                        <SelectItem value="Hispanic">Hispanic</SelectItem>
                                     </SelectContent>
+
                                 </Select>
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="framework">Eye Color</Label>
-                                <Select onValueChange={(value)=> seteyeColor(value as ModelEyeColorType)}>
+                                <Select onValueChange={(value) => seteyeColor(value as ModelEyeColorType)}>
                                     <SelectTrigger id="framework">
                                         <SelectValue placeholder="Select" />
                                     </SelectTrigger>
                                     <SelectContent position="popper">
-                                        <SelectItem value="brown">Brown</SelectItem>
-                                        <SelectItem value="blue">Blue</SelectItem>
-                                        <SelectItem value="hazel">Hazel</SelectItem>
-                                        <SelectItem value="grey">Grey</SelectItem>
+                                        <SelectItem value="Brown">Brown</SelectItem>
+                                        <SelectItem value="Blue">Blue</SelectItem>
+                                        <SelectItem value="Hazel">Hazel</SelectItem>
+                                        <SelectItem value="Grey">Grey</SelectItem>
                                     </SelectContent>
+
                                 </Select>
                             </div>
                             <div className="flex iflex-col space-y-1.5">
-                                <Switch checked={bald} onCheckedChange={(e) => setbald(!bald)}  className="cursor-pointer"/>
+                                <Switch checked={bald} onCheckedChange={(e) => setbald(!bald)} className="cursor-pointer" />
                                 <Label className="ml-2">Bald</Label>
                             </div>
                             <div className="flex flex-col space-y-1.5">
-                                <FileUploadModal onUploadDone={(zipUrl)=>{
+                                <FileUploadModal onUploadDone={(zipUrl) => {
                                     setzipUrl(zipUrl)
-                                }}/>
+                                }} />
                             </div>
 
                         </div>

@@ -2,6 +2,17 @@ import { Response, Request, NextFunction } from "express";
 import jwt,{JwtPayload} from "jsonwebtoken";
 
 
+declare global {
+    namespace Express {
+        interface Request {
+            user?: JwtPayload,
+            userId?:string
+        }
+    }
+}
+
+
+
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     const headers = req.headers?.authorization;
     if (!headers) {
@@ -15,13 +26,13 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         return;
     }
 
-    try {
+    //console.log(authToken)
 
-        const payload = jwt.verify(authToken, process.env.JWKS_AUTH_KEY!, {
-            algorithms: ['RS256']
-        }) as JwtPayload;
-        req.user = payload
-        console.log(payload);
+    try {
+        const payload = jwt.decode(authToken) as JwtPayload;
+        req.user = payload;
+        req.userId = payload.sub
+        console.log(payload.sub);
         next();
     } catch (error) {
         res.status(401).json({ error: "Invalid authorization token" });

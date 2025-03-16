@@ -20,7 +20,6 @@ app.use(cors())
 
 
 const PORT = 8000;
-const demoUserID = "123jasb"
 
 const client = new S3Client({region : "ap-south-2",
     endpoint : process.env.ENDPOINT,
@@ -70,7 +69,7 @@ app.get('/pre-signed-url' , async(req , res)=>{
 })
 //Routes
 
-app.post('/ai/training', authMiddleware,async (req, res) => {
+app.post('/ai/training',authMiddleware,async (req, res) => {
     const parsedResult = TrainModel.safeParse(req.body)
 
     if (!parsedResult.success) {
@@ -82,7 +81,7 @@ app.post('/ai/training', authMiddleware,async (req, res) => {
         return;
     }
 
-    const {request_id , response_url}  = await falAimodel.trainModel(parsedResult.data.zipUrl , parsedResult.data.name)
+    const {request_id , response_url}  = await falAimodel.trainModel(parsedResult.data.zipUrl ?? "" , parsedResult.data.name)
 
 
 
@@ -94,9 +93,9 @@ app.post('/ai/training', authMiddleware,async (req, res) => {
             ethicity: parsedResult.data.ethnicity,
             eyecolor: parsedResult.data.eyecolor,
             bald: parsedResult.data.bald,
-            zipUrl : parsedResult.data.zipUrl,
-            userId: demoUserID,
-            falAirequest_id : request_id
+            zipUrl: parsedResult.data.zipUrl || "",
+            userId: req.userId!,
+            falAirequest_id: request_id
         }
     })
 
@@ -104,7 +103,6 @@ app.post('/ai/training', authMiddleware,async (req, res) => {
         message: `Model Created with id : ${model.id}`
     })
     return;
-
 });
 
 app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
@@ -123,7 +121,7 @@ app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
         data: {
             modelId: parsedBody.data.modelId,
             prompt: parsedBody.data.prompt,
-            userId: demoUserID,
+            userId: req.userId!,
             imageUrl: ""
         }
     })
@@ -148,7 +146,7 @@ app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
 
 // });
 
-app.post('/pack/generate', async (req: any, res: any) => {
+app.post('/pack/generate',authMiddleware, async (req: any, res: any) => {
     const parsedBody = GenerateImagesFromPack.safeParse(req.body)
 
     if (!parsedBody.success) {
@@ -175,7 +173,7 @@ app.post('/pack/generate', async (req: any, res: any) => {
         data: prompts.map((prompt, index) => ({
             modelId: parsedBody.data.modelId,
             prompt: prompt.name,
-            userId: demoUserID,
+            userId: req.userId!,
             imageUrl: "",
             requestIds : requestIds[index].request_id
         }))
