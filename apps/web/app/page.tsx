@@ -1,12 +1,28 @@
-import {Button} from '@/components/ui/button'
+"use client"
+import { useEffect } from "react";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+import Gallery from "@/components/Gallery";
+import CallToAction from "@/components/CallToAction";
+import Footer from "@/components/Footer";
 
-export default function Home() {
+const Index = () => {
+  // Scroll to top when the page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <>
-    <h1 className="text-xl" >
-      Hello world!
-    </h1>
-    <Button className='mt-[100px] cursor-pointer ml-3'>Click here</Button>
-    </>
-  )
-}
+    <div className="flex flex-col min-h-screen">
+      <main>
+        <Hero />
+        {/* <Features />
+        <Gallery />
+        <CallToAction /> */}
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
