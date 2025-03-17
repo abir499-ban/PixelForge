@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 
 const Footer = () => {
@@ -12,7 +13,7 @@ const Footer = () => {
       <div className="page-container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">FacePalette</h2>
+            <h2 className="text-2xl font-bold mb-4">PixelForge</h2>
             <p className="text-muted-foreground max-w-md">
               Transform your photos into artistic masterpieces with our AI-powered image generation platform.
             </p>
@@ -41,7 +42,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {year} FacePalette. All rights reserved.
+            © {year} PixelForge. All rights reserved.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">

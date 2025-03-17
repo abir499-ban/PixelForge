@@ -36,8 +36,16 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <header className="flex flex-row justify-between items-center p-4  h-16">
-            <h1 className="text-3xl text-pink-700  font-semibold">Pixel Forge</h1>
-            <AuthBar/>
+            <h1 className="text-3xl text-pink-700  font-semibold"><a href='http://localhost:3000'>Pixel Forge</a></h1>
+  
+            <div className="container mx-auto px-6 flex items-center justify-between ml-20">
+              <nav className="hidden md:flex items-center space-x-8">
+                <a href="http://localhost:3000/train" className="text-sm font-medium  hover:text-pink-800 transition-colors duration-200">Train</a>
+                <a href="http://localhost:3000/howitworks" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">How It Works</a>
+                <a href="#gallery" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Features</a>
+              </nav>
+              <AuthBar />
+            </div>
           </header>
           {children}
         </body>

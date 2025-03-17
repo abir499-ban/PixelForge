@@ -19,7 +19,7 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts"
-  ],
+, "app/howitworks"  ],
   "exclude": [
     "node_modules"
   ]
