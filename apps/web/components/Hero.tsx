@@ -47,7 +47,7 @@ const Hero = () => {
         <div className="relative">
           <div className={`rounded-xl overflow-hidden ${!imageLoaded ? 'image-loading' : ''} aspect-[4/3] animate-fade-in`} style={{ animationDelay: '0.3s' }}>
             <img
-              src="https://images.unsplash.com/photo-1518770660439-4636190af475"
+              src="https://assets.promptbase.com/DALLE_IMAGES%2FWdqv8NUI9TXtDtpQNrXLXPY9uVs1%2Fresized%2F1687063501918_800x800.webp?alt=media&token=03e325da-580e-42ea-a26a-54bb7f35882b"
               alt="AI generated face transformations"
               className="w-full h-full object-cover transition-opacity duration-700"
               style={{ opacity: imageLoaded ? 1 : 0 }}

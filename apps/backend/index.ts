@@ -117,12 +117,22 @@ app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
         return;
     }
 
+    const my_model = await prismaClient.model.findFirst({
+        where:{
+            id : parsedBody.data.modelId,
+            userId : req.userId
+        }
+    })
+
+    const {request_id , response_url}  = await falAimodel.generateImages(parsedBody.data.prompt , my_model?.tensor!)
+
+
     const image = await prismaClient.outputImages.create({
         data: {
             modelId: parsedBody.data.modelId,
             prompt: parsedBody.data.prompt,
             userId: req.userId!,
-            imageUrl: ""
+            falAirequest_id : request_id
         }
     })
 
