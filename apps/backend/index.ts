@@ -275,6 +275,22 @@ app.post('/fal-ai/webhook/image' ,async(req , res)=>{
 })
 
 
+app.get('/pack/collections' , async(req, res)=>{
+    try {
+        const Allpacks = await prismaClient.pack.findMany({})
+        res.status(201).json({
+            packs : Allpacks
+        })
+        return;
+        
+    } catch (error) {
+        res.status(501).json({
+            message : "Server error"
+        })
+        return
+    }
+})
+
 app.listen(PORT, () => {
     console.log("Server is running ");
 });

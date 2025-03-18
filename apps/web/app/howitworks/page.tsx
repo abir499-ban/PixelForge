@@ -18,7 +18,7 @@ const HowItWorks = () => {
           <div className="page-container">
             <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-up">
               <div className="inline-block glass rounded-full px-4 py-1.5 text-sm font-medium mb-4 text-black">
-                <p>How <span className="text-pink-700">Pixel Forge</span> Works</p>
+                <p className="text-foreground">How <span className="text-pink-700">Pixel Forge</span> Works</p>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Your Journey to AI-Generated Images
@@ -192,7 +192,7 @@ const HowItWorks = () => {
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Join thousands of users who are already transforming their photos into stunning AI-generated artwork.
               </p>
-              <Button size="lg" className="bg-black hover:cursor-pointer">
+              <Button size="lg" className="bg-foreground hover:cursor-pointer">
                 <a href="http://localhost:3000/train">Get Started Now</a>
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

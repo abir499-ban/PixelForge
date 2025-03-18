@@ -99,6 +99,7 @@ model OutputImages{
 model Pack{
   id String @id @default(uuid())
   name String
+  coverPicUrl String @default("")
   prompts PackPrompts[]
 }
 
