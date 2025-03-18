@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -56,7 +56,6 @@ const CardWithForm = () => {
 
         try {
             const token = await getToken();
-            console.log(userId)
             const res = await axios.post(`${BACKEND_URL}/ai/training`, model, {
                 headers: {
                     authorization: `Bearer ${token}`
@@ -70,6 +69,14 @@ const CardWithForm = () => {
 
 
     }
+    useEffect(()=>{
+        const seeToken = async() =>{
+            const token = await getToken()
+            console.log(token)
+        }
+        seeToken()
+    }, [])
+    
 
 
     return (

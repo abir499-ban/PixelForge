@@ -291,6 +291,26 @@ app.get('/pack/collections' , async(req, res)=>{
     }
 })
 
+app.get('/ai/models', authMiddleware, async(req, res)=>{
+    try {
+        const models = await prismaClient.model.findMany({
+            where:{
+                userId : req.userId
+            }
+        })
+
+        res.status(201).json({
+            models : models
+        })
+
+        return;
+    } catch (error) {
+        res.status(501).json({
+            message : "Server error"
+        })
+    }
+})
+
 app.listen(PORT, () => {
     console.log("Server is running ");
 });
