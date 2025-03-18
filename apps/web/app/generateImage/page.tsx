@@ -10,26 +10,47 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import axios from 'axios'
 import { BACKEND_URL } from 'common/constants'
-import { Butterfly_Kids } from 'next/font/google'
 import { Button } from '@/components/ui/button'
 
 const page = () => {
     const { getToken } = useAuth()
     const [modelId, setmodelId] = useState<string | null>(null)
-    const [models, setmodels] = useState<ModelType[]>([{
-        id: "31a37a28-d7cf-487e-9236-40cab29622d5",
-        name: "Polo",
-        age: 18,
-        type: "Male",
-        ethicity: "Pacific",
-        eyecolor: "Hazel",
-        bald: false,
-        userId: "user_2u2CTyYmLqj0ORc8JbC4meJOKqI",
-        triggerWord: null,
-        trainingStatus: "Pending",
-        createdAt: "2025-03-16T14:31:29.286Z",
-        updatedAt: "2025-03-16T14:31:29.286Z"
-    }])
+    const [models, setmodels] = useState<ModelType[]>([])
+    const [prompt, setprompt] = useState<string>("")
+    //demo data if useEffect not to be used
+    // {
+    //     id: "31a37a28-d7cf-487e-9236-40cab29622d5",
+    //     name: "Polo",
+    //     age: 18,
+    //     type: "Male",
+    //     ethicity: "Pacific",
+    //     eyecolor: "Hazel",
+    //     bald: false,
+    //     userId: "user_2u2CTyYmLqj0ORc8JbC4meJOKqI",
+    //     triggerWord: null,
+    //     trainingStatus: "Pending",
+    //     createdAt: "2025-03-16T14:31:29.286Z",
+    //     updatedAt: "2025-03-16T14:31:29.286Z"
+    // }
+
+    const submitPrompt = async () => {
+        const token = await getToken();
+        const generateImageBody = {
+            prompt:prompt,
+            modelId : modelId
+        }
+        try {
+            const res = await axios.post(`${BACKEND_URL}/ai/generate`,generateImageBody,{
+                headers:{
+                    authorization: `Bearer ${token}`
+                }
+            })
+            console.log(res.data);
+            alert("You will be notified when the Image is ready. It hardly takes two-three minutes")
+        } catch (error) {
+            console.log("Error occured " , error)
+        }
+    }
 
     const fetchModels = async () => {
         const token = await getToken()
@@ -54,25 +75,27 @@ const page = () => {
     }
 
 
-    // useEffect(()=>{
-    //     fetchModels()
-    // }, [])
+    useEffect(()=>{
+        fetchModels()
+    }, [])
     return (
         <>
             <div className='flex flex-col items-center h-screen gap-3 mt-[140px] ml-[200px] mr-[200px]'>
                 <h1 className='text-foreground font-medium text-3xl mb-4'>Enter your prompt and select one of your created model.</h1>
-                <Textarea placeholder="Type your prompt here." />
-                <Button disabled={modelId == null ? true : false}>Generate Image ✨</Button>
+                <Textarea onChange={(e) => {
+                    setprompt(e.target.value)
+                }} value={prompt} placeholder="Type your prompt here." />
+                <Button disabled={modelId == null || prompt.length == 0 ? true : false} onClick={submitPrompt}>Generate Image ✨</Button>
                 <div className=' flex flex-col justify-center items-center gap-2 mt-6'>
                     {models.map((model, index) => (
                         <HoverCard key={index}>
                             <HoverCardTrigger className="flex flex-row gap-[100px] hover:cursor-pointer">
-                                <span><Checkbox onClick={()=>{
-                                    if(modelId) setmodelId(null)
+                                <span><Checkbox onClick={() => {
+                                    if (modelId) setmodelId(null)
                                     else setmodelId(model.id)
-                                }}/></span>
-                                <span>{index+1}</span>
-                                <span>{model.name}</span> 
+                                }} /></span>
+                                <span>{index + 1}</span>
+                                <span>{model.name}</span>
                                 <span>{model.trainingStatus}</span>
                             </HoverCardTrigger>
 

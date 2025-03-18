@@ -107,7 +107,6 @@ app.post('/ai/training',authMiddleware,async (req, res) => {
 
 app.post('/ai/generate', authMiddleware , async (req: any, res: any) => {
     const parsedBody = GenerateImage.safeParse(req.body)
-
     if (!parsedBody.success) {
         res.status(401).json({
             success: false,
