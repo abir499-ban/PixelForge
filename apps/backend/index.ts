@@ -298,9 +298,16 @@ app.get('/ai/models', authMiddleware, async(req, res)=>{
                 userId : req.userId
             }
         })
+        
+        let safeModel : any[] = []
+        models.forEach((model)=>{
+            const {tensor, falAirequest_id , zipUrl , ...newModel} = model
+            safeModel.push(newModel)
+        })
+
 
         res.status(201).json({
-            models : models
+            models : safeModel
         })
 
         return;

@@ -51,7 +51,8 @@ export default function RootLayout({
                   <a href="http://localhost:3000/train" className="text-sm font-medium  hover:text-pink-800 transition-colors duration-200">Train</a>
                   <a href="http://localhost:3000/packs" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Packs</a>
                   <a href="http://localhost:3000/howitworks" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">How It Works</a>
-                  <a href="#gallery" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Features</a>
+                  <a href="http://localhost:3000/generateImage" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Generate Image</a>
+                  {/* <a href="http://localhost:3000/generateImage" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Generate Image</a> */}
                 </nav>
                 <div className='flex flec-row gap-6'>
                   <AuthBar />

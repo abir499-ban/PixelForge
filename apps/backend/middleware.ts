@@ -32,7 +32,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         const payload = jwt.decode(authToken) as JwtPayload;
         req.user = payload;
         req.userId = payload.sub
-        console.log(payload.sub);
+        // console.log(payload.sub);
         next();
     } catch (error) {
         res.status(401).json({ error: "Invalid authorization token" });
