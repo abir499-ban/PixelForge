@@ -49,6 +49,7 @@ export default function RootLayout({
               <div className="container mx-auto px-6 flex items-center justify-between ml-20">
                 <nav className="hidden md:flex items-center space-x-8">
                   <a href="http://localhost:3000/train" className="text-sm font-medium  hover:text-pink-800 transition-colors duration-200">Train</a>
+                  <a href="http://localhost:3000/packs" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Packs</a>
                   <a href="http://localhost:3000/howitworks" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">How It Works</a>
                   <a href="#gallery" className="text-sm font-medium hover:text-pink-800 transition-colors duration-200">Features</a>
                 </nav>

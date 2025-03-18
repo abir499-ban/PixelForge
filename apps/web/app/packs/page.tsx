@@ -7,11 +7,7 @@ import { useEffect, useState } from "react";
 
 const Gallery4Demo = () => {
 
-    const [packs, setPacks] = useState<Gallery4Item[]>([{
-        id: "",
-        name: "",
-        coverPicUrl: ""
-    }]);
+    const [packs, setPacks] = useState<Gallery4Item[]>([]);
 
     useEffect(() => {
         const fetchPacks = async () => {
