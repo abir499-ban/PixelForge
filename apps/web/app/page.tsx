@@ -20,7 +20,6 @@ const Index = () => {
         <Gallery />
         <CallToAction /> */}
       </main>
-      <Footer />
     </div>
   );
 };

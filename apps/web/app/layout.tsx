@@ -12,6 +12,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import AuthBar from '@/components/shared/Authbar'
 import { ModeToggle } from '@/components/shared/ThemeToggler'
+import Footer from '@/components/Footer'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -65,6 +66,7 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
+      <Footer/>
     </ClerkProvider>
   )
 }

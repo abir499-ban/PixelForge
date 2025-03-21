@@ -18,3 +18,13 @@ declare type ModelType={
     createdAt : string,
     updatedAt : string,
 }
+
+declare type GeneratedImagesType = {
+    id : string,
+    imageUrl : string,
+    prompt : string,
+    createdAt : string,
+    updatedAt : string,
+    modelId : string,
+    userId : string
+}

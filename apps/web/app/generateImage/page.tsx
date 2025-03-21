@@ -81,7 +81,7 @@ const page = () => {
     return (
         <>
             <div className='flex flex-col items-center h-screen gap-3 mt-[140px] ml-[200px] mr-[200px]'>
-                <h1 className='text-foreground font-medium text-3xl mb-4'>Enter your prompt and select one of your created model.</h1>
+                <h1 className='text-3xl md:text-4xl font-bold mb-4'>Enter your prompt and select one of your created model.</h1>
                 <Textarea onChange={(e) => {
                     setprompt(e.target.value)
                 }} value={prompt} placeholder="Type your prompt here." />

@@ -317,6 +317,29 @@ app.get('/ai/models', authMiddleware, async(req, res)=>{
     }
 })
 
+app.get('/ai/images' , authMiddleware, async(req , res)=>{
+    try {
+        const myImages = await prismaClient.outputImages.findMany({
+            where:{
+                userId : req.userId,
+                status : "Generated"
+            }
+        })
+
+        let refinedImages : any[] = []
+        myImages.forEach((image)=>{
+            const{falAirequest_id , status , ...refinedImage} = image
+            refinedImages.push(refinedImage)
+        })
+    
+        res.status(201).json({images : refinedImages})
+        return
+    } catch (error) {
+        console.log(error)
+        res.status(501).json({message : "Sever error"})
+    }
+})
+
 app.listen(PORT, () => {
     console.log("Server is running ");
 });
