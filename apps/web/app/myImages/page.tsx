@@ -38,7 +38,7 @@ const GeneratedImages = () => {
           <div className="mb-8 text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">My Generated Images</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Browse through all the AI-generated images based on your face model.
+              Browse through all the AI-generated images based on your Trained models.
               Download your favorites or share them with others.
             </p>
           </div>
@@ -81,9 +81,14 @@ const ImageCard = ({ image }: { image: GeneratedImagesType }) => {
       </div>
       <CardContent className="p-4">
         <div className="mb-3">
-          <p className="text-sm text-muted-foreground mb-1">
-            {formatDate(image.createdAt)}
-          </p>
+          <div className="flex flex-row justify-between">
+            <p className="text-sm text-muted-foreground mb-1">
+              {formatDate(image.createdAt)}
+            </p>
+            <p className="text-sm text-muted-foreground mb-1">
+              Trained on {image.modelname}
+            </p>
+          </div>
           <p className="line-clamp-2 h-10 text-sm font-medium">
             "{image.prompt}"
           </p>

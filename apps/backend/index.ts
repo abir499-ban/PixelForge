@@ -323,14 +323,22 @@ app.get('/ai/images' , authMiddleware, async(req , res)=>{
             where:{
                 userId : req.userId,
                 status : "Generated"
+            },
+            include:{
+                model : true
             }
         })
 
         let refinedImages : any[] = []
         myImages.forEach((image)=>{
-            const{falAirequest_id , status , ...refinedImage} = image
-            refinedImages.push(refinedImage)
+            const{falAirequest_id , status , model , ...refinedImage} = image
+            refinedImages.push({
+                ...refinedImage ,
+                modelname: model.name
+            })
         })
+
+        
     
         res.status(201).json({images : refinedImages})
         return

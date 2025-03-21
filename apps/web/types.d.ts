@@ -26,5 +26,6 @@ declare type GeneratedImagesType = {
     createdAt : string,
     updatedAt : string,
     modelId : string,
-    userId : string
+    userId : string,
+    modelname : string
 }
