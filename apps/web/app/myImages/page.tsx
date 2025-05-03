@@ -67,6 +67,23 @@ const ImageCard = ({ image }: { image: GeneratedImagesType }) => {
     });
   };
 
+  const handleshare = async(url:string) => {
+    await navigator.share({
+      title: "Check ou this AI Generated Image",
+      text: "I just this Image trained on my custom model",
+      url: url
+    })
+  }
+
+  const handledownload = async(image : GeneratedImagesType)=>{
+    const a = document.createElement('a')
+    a.href = image.imageUrl 
+    a.download = `${image.id}.jpg`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
   return (
     <Card className="overflow-hidden  hover:shadow-lg">
       <div className="relative aspect-square overflow-hidden">
@@ -94,11 +111,11 @@ const ImageCard = ({ image }: { image: GeneratedImagesType }) => {
           </p>
         </div>
         <div className="flex justify-between mt-2">
-          <Button variant="outline" size="sm" className="flex items-center gap-1">
+          <Button onClick={()=>handledownload(image)} variant="outline" size="sm" className="flex items-center gap-1">
             <Download size={16} />
             <span className="sr-only md:not-sr-only">Download</span>
           </Button>
-          <Button variant="outline" size="sm" className="flex items-center gap-1">
+          <Button onClick={()=>handleshare(image.imageUrl)} variant="outline" size="sm" className="flex items-center gap-1">
             <Share2 size={16} />
             <span className="sr-only md:not-sr-only">Share</span>
           </Button>
