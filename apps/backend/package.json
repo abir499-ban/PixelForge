@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "build" : "tsup",
+    "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.758.0",
     "@aws-sdk/s3-presigned-post": "^3.758.0",
+    "@fal-ai/client": "^1.4.0",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.9",
     "common": "*",

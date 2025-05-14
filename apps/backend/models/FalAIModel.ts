@@ -1,5 +1,5 @@
 import { BaseModel } from './BaseModel'
-import { fal } from '@fal-ai/client'
+import { fal } from  '@fal-ai/client'
 import dotenv from 'dotenv'
 
 dotenv.config()
