@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { FRONTEND_URL } from "@/constants/constants";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -35,11 +36,11 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <Button size="lg" className="group">
-              Get Started for Free
+              <a href={`${FRONTEND_URL}/train`}>Get Started for Free</a>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button size="lg" variant="outline">
-              View Examples
+              <a href={`${FRONTEND_URL}/myImages`}>View Examples</a>
             </Button>
           </div>
         </div>
