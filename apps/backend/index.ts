@@ -174,12 +174,12 @@ app.post('/pack/generate',authMiddleware, async (req: any, res: any) => {
     })
 
     let requestIds : RequestIDArrayType[] =[]
-    prompts.forEach(async(prompt)=>{
+    prompts.forEach(async(prompt : any)=>{
         requestIds.push(await falAimodel.generateImages(prompt.name ,  parsedBody.data.modelId))
     })
 
     const images = await prismaClient.outputImages.createMany({
-        data: prompts.map((prompt, index) => ({
+        data: prompts.map((prompt : any , index : number) => ({
             modelId: parsedBody.data.modelId,
             prompt: prompt.name,
             userId: req.userId!,
@@ -299,7 +299,7 @@ app.get('/ai/models', authMiddleware, async(req, res)=>{
         })
         
         let safeModel : any[] = []
-        models.forEach((model)=>{
+        models.forEach((model : any)=>{
             const {tensor, falAirequest_id , zipUrl , ...newModel} = model
             safeModel.push(newModel)
         })
@@ -330,7 +330,7 @@ app.get('/ai/images' , authMiddleware, async(req , res)=>{
         })
 
         let refinedImages : any[] = []
-        myImages.forEach((image)=>{
+        myImages.forEach((image : any)=>{
             const{falAirequest_id , status , model , ...refinedImage} = image
             refinedImages.push({
                 ...refinedImage ,
