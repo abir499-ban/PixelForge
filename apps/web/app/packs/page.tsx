@@ -1,7 +1,7 @@
 "use client"
 import { Gallery4, Gallery4Item, Gallery4Props } from "@/components/blocks/gallery4"
 import axios from "axios";
-import { BACKEND_URL } from "common/constants";
+import { BACKEND_URL } from "@/constants/constants";
 import { useEffect, useState } from "react";
 
 

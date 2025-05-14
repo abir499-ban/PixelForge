@@ -7,7 +7,8 @@
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {BACKEND_URL, CLOUDFLARE_BASE_URL} from 'common/constants'
+import {CLOUDFLARE_BASE_URL} from 'common/constants'
+import {BACKEND_URL} from '@/constants/constants'
 import axios from 'axios'
 import JSZip from 'jszip'
 

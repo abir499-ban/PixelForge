@@ -9,7 +9,7 @@ import { useAuth } from '@clerk/nextjs'
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import axios from 'axios'
-import { BACKEND_URL } from 'common/constants'
+import { BACKEND_URL } from '@/constants/constants'
 import { Button } from '@/components/ui/button'
 
 const page = () => {

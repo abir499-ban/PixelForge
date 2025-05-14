@@ -26,7 +26,7 @@ import { Switch } from '@/components/ui/switch'
 import { UploadIcon } from "lucide-react"
 import { TrainModelType, ImagefromPackType, ImageType, ModelGenderType, ModelEthnictyType, ModelEyeColorType } from 'common/inferedTypes'
 import axios from "axios"
-import { BACKEND_URL } from "common/constants"
+import { BACKEND_URL } from "@/constants/constants"
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@clerk/nextjs'
 

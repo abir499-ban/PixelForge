@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Share2 } from "lucide-react";
 import { useAuth } from '@clerk/nextjs'
 import axios from "axios";
-import { BACKEND_URL } from "common/constants";
+import { BACKEND_URL } from "@/constants/constants";
 // Mock data for generated images
 
 
