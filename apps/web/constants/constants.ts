@@ -1,1 +1,1 @@
-export const FRONTEND_URL='http://localhost:3000'
+export const FRONTEND_URL='https://pixel-forge-web-5iv9.vercel.app/'
