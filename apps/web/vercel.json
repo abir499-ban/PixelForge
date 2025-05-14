@@ -1,6 +1,6 @@
 {
   "version": 2,
   "buildCommand": "turbo run build --filter=web",
-  "installCommand": "npm install --prefix=..",
+  "installCommand": "cd ../.. && npm install && cd apps/web && npm install",
   "outputDirectory": ".next"
 }
