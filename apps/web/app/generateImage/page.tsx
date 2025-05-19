@@ -80,7 +80,7 @@ const page = () => {
     }, [])
     return (
         <>
-            <div className='flex flex-col items-center h-screen gap-3 mt-[140px] ml-[200px] mr-[200px]'>
+            <div className='flex flex-col items-center h-full gap-3 mt-24 px-4 w-full max-w-4xl mx-auto mb-9'>
                 <h1 className='text-3xl md:text-4xl font-bold mb-4'>Enter your prompt and select one of your created model.</h1>
                 <Textarea onChange={(e) => {
                     setprompt(e.target.value)
@@ -89,7 +89,7 @@ const page = () => {
                 <div className=' flex flex-col justify-center items-center gap-2 mt-6'>
                     {models.map((model, index) => (
                         <HoverCard key={index}>
-                            <HoverCardTrigger className="flex flex-row gap-[100px] hover:cursor-pointer">
+                            <HoverCardTrigger className="flex flex-col md:flex-row md:gap-12 gap-2 hover:cursor-pointer items-start md:items-center">
                                 <span><Checkbox onClick={() => {
                                     if (modelId) setmodelId(null)
                                     else setmodelId(model.id)

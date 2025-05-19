@@ -80,24 +80,24 @@ const CardWithForm = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center mt-10">
-            <Card className="w-[500px]">
+        <div className="flex justify-center items-center px-4 sm:px-6 md:px-8 py-10">
+            <Card className="w-full max-w-md">
                 <CardHeader>
                     <CardTitle className="font-serif text-2xl">Create Model</CardTitle>
                     <CardDescription>Create and Register Model in just one click</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form>
+                    <form className="space-y-4">
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Model Name</Label>
-                                <Input id="name" placeholder="Name of your model" value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                <Input className="w-full" id="name" placeholder="Name of your model" value={name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setname(e.target.value)
                                 }} />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Enter Age</Label>
-                                <Input id="name" placeholder="Age of Model" type="number"
+                                <Input className="w-full" id="name" placeholder="Age of Model" type="number"
                                     value={age} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                         setage(parseInt(e.target.value))
                                     }} />
@@ -149,7 +149,7 @@ const CardWithForm = () => {
 
                                 </Select>
                             </div>
-                            <div className="flex iflex-col space-y-1.5">
+                            <div className="flex items-center space-x-2">
                                 <Switch checked={bald} onCheckedChange={(e) => setbald(!bald)} className="cursor-pointer" />
                                 <Label className="ml-2">Bald</Label>
                             </div>

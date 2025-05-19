@@ -11,7 +11,7 @@ const HowItWorks = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen ml-11">
+    <div className="flex flex-col min-h-screen ml-11 px-6">
       <main>
         {/* Hero Section */}
         <section className="section-padding bg-secondary/30">
