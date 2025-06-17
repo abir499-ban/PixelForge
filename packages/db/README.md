@@ -39,3 +39,8 @@ To pull changes from the db and populate you .prisma/schema.prisma file:
         npx prisma db pull
 ```
 
+To sync your db with schema without generating migration files
+```bsh
+    npx prisma db push
+```
+
