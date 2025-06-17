@@ -27,3 +27,15 @@ npm install @prisma/client
 ```sh
     npx prisma migrate dev
 ```
+
+
+
+-----------------------------------------
+
+## Extra Commands
+
+To pull changes from the db and populate you .prisma/schema.prisma file:
+```bsh
+        npx prisma db pull
+```
+
