@@ -44,3 +44,7 @@ To sync your db with schema without generating migration files
     npx prisma db push
 ```
 
+To spin off Prisma Studio:
+```bsh
+    npx prisma studio
+```
