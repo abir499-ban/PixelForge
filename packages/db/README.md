@@ -48,3 +48,25 @@ To spin off Prisma Studio:
 ```bsh
     npx prisma studio
 ```
+
+
+-------------------------------------------------------
+## How to resolve already existing and populated Neon db with prisma:
+1. Create a branch of your neon db and name it `prisma_test` (just like a GIT branch)
+
+2. initalize prisma in your project.
+   `npm i -d prisma
+   npx prisma init --datasource-provider postgresql
+   npm install @prisma/client`
+
+3. Pull the complete schema of your db into `.primsa/schema.prisma` file:
+`npx prisma db pull`
+
+4. Create the first migration file:
+   `mkdir prisma/migrations/init`
+
+5. Create the SQL script from your current schema:
+   `npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/init/migration.sql`
+
+6. Apply base migrations:
+    ` npx prisma migrate resolve --applied init`
